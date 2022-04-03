@@ -1,28 +1,28 @@
 import mongoose, { Schema, Document} from 'mongoose';
-import { string } from 'prop-types';
 
 export interface IUser extends Document{
-  fullname:string;
-  uname:string;
-  email:string;
-  pass:string;
+  fullname:String;
+  uname:String;
+  email:String;
+  pass:String;
   joinedDate:Date;
   socials:Object;
 }
 
 const UserSchema:Schema = new Schema({
-  fullname: {type:string, required:true},
-  uname: {type:string, required:true, unique:true},
-  email: {type:string, required:true},
-  pass: {type:string, required:true},
+  fullname: {type:String, required:true},
+  uname: {type:String, required:true, unique:true},
+  email: {type:String, required:true},
+  pass: {type:String, required:true},
   joined: { type: Date, default: Date.now },
   socials:{
-    "in": string,
-    "gh":string,
-    "lk":string
+    "in": String,
+    "gh":String,
+    "lk":String
   }
   
 });
 
 
-export default mongoose.model<IUser>('User', UserSchema);
+// export default mongoose.model<IUser>('User', UserSchema);
+module.exports = mongoose.model<IUser>('User', UserSchema);

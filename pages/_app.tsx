@@ -7,7 +7,7 @@ import Navigation from '../components/Navigation'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Navigation/>
+      <Navigation isauthed={false} activePage="Home"/>
       <Component {...pageProps} />
     </ChakraProvider>
   )

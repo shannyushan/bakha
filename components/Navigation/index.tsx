@@ -19,7 +19,7 @@ const Navigation = ({ isauthed, activePage }) => {
           <NextLink href="/" passHref>
             <Link>Home</Link>
           </NextLink>
-          <NextLink href="/" passHref>
+          <NextLink href="/stories" passHref>
             <Link>Explore</Link>
           </NextLink>
           {isauthed ? (
