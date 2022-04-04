@@ -1,4 +1,4 @@
-import User from '../models/user';
+var User =require('../models/User');
 import dbConnect from './mongodb'
 
 dbConnect();

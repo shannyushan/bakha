@@ -5,7 +5,7 @@ export interface IUser extends Document{
   uname:String;
   email:String;
   pass:String;
-  joinedDate:Date;
+  joined:Date;
   socials:Object;
 }
 
