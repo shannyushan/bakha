@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 import type { NextApiRequest, NextApiResponse } from "next";
-var User = require("../../../models/User");
 import dbConnect from "../../../utils/mongodb";
+var bcrypt = require("bcrypt");
+
+var User = require("../../../models/User");
 
 dbConnect();
 
@@ -11,16 +13,22 @@ type Data = {
   error: string;
 };
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   if (req.method == "GET") {
-    return res
+    res
       .status(200)
       .json({ iserror: false, error: "", res: { msg: "GET reached" } });
   } else if (req.method == "POST") {
-    const { fullname, username, password, email } = req.body;
+    let { fullname, username, password, email } = req.body;
+
+    // Creating bcrypt password hash to store
+
+    let salt = await bcrypt.genSalt(10);
+    password = await bcrypt.hash(password, salt);
+
     let user = new User({
       _id: new mongoose.Types.ObjectId(),
       fullname: fullname,
@@ -28,28 +36,32 @@ export default function handler(
       pass: password,
       email: email,
     });
-    user
+    
+    await user
       .save()
       .then((resp) => {
-        return res
-          .status(200)
-          .json({ iserror: false, error: "", res: { msg: `User ${resp.uname} Created Successfully!`, at:resp.joined } });
+        res.status(200).json({
+          iserror: false,
+          error: "",
+          res: {
+            msg: `User ${resp.uname} Created Successfully!`,
+            at: resp.joined,
+          },
+        });
       })
       .catch((err) => {
-        return res
-          .status(200)
-          .json({
-            iserror: true,
-            error: err.message,
-            res: { msg: "" },
-          });
+        res.status(200).json({
+          iserror: true,
+          error: err.message,
+          res: { msg: "" },
+        });
       });
   } else if (req.method == "DELETE") {
-    return res
+    res
       .status(200)
       .json({ iserror: false, error: "", res: { msg: "Delete reached" } });
   } else {
-    return res.status(400).json({
+    res.status(400).json({
       error: "Only GET, POST, DELETE methods is allowed",
       iserror: true,
       res: {},

@@ -12,7 +12,7 @@ export interface IUser extends Document{
 const UserSchema:Schema = new Schema({
   fullname: {type:String, required:true},
   uname: {type:String, required:true, unique:true},
-  email: {type:String, required:true},
+  email: {type:String, required:true, unique:true},
   pass: {type:String, required:true},
   joined: { type: Date, default: Date.now },
   socials:{

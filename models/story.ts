@@ -1,6 +1,6 @@
 import mongoose, {Schema, Document} from 'mongoose';
 import { string } from 'prop-types';
-import { IUser } from './user';
+import { IUser } from './User';
 import { IChapter } from './chapter';
 
 export interface IStory extends Document{
