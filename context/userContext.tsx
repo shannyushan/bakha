@@ -43,7 +43,9 @@ export function AuthProvider({ children }: Props) {
         function loadUserFromCookies() {
             const authToken  = Cookies.get('token')
             if (authToken) {
-                fetch(`${process.env.baseURL}/api/user/auth`, { 
+                // const uri = process.env.BASE_URL;
+                // console.log(uri);
+                fetch(`/api/user/auth`, { 
                     method: 'GET', 
                     headers: new Headers({
                       'Authorization': `Bearer ${authToken}`, 
@@ -59,7 +61,9 @@ export function AuthProvider({ children }: Props) {
     }, []);
 
     const login = async (username, password) => {
-        fetch(`${process.env.baseURL}/api/user/login`, { 
+        // const uri = process.env.BASE_URL;
+        // console.log(uri);
+        fetch(`/api/user/login`, { 
             method: 'POST', 
             headers:{
                 'Content-Type': 'application/json',
@@ -79,7 +83,7 @@ export function AuthProvider({ children }: Props) {
                 setUser(null);
               }
           }).catch(error =>{
-              console.log(` Error occured : ${error.message} \n ${error}`)
+              console.log(` Error occured : ${error}`)
             setUser(null);
           });
     }

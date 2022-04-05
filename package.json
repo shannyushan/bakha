@@ -13,6 +13,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "bcrypt": "^5.0.1",
+    "formik": "^2.2.9",
     "framer-motion": "^6",
     "jscookie": "^1.1.0",
     "mongoose": "^6.2.9",

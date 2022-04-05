@@ -1,13 +1,31 @@
 import { Box, Flex, HStack } from "@chakra-ui/layout";
-import { Button, Link } from "@chakra-ui/react";
 import next from "next";
+import { useState } from "react";
 import Image from "next/image";
 import NextLink from "next/link";
 import logosrc from "./../../public/Bakha.png";
-
+import {
+  Container,
+  Input,
+  Button,
+  Link,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+} from "@chakra-ui/react";
 import styles from "./Navigation.module.css";
+import useAuth from "../../context/userContext";
 
-const Navigation = ({ isauthed, activePage }) => {
+const Navigation = () => {
+  const [islogin, setIslogin] = useState<boolean>(false);
+  const {islogged} = useAuth();
+
+  const loginpopup = (e) => {
+    e.preventDefault();
+    setIslogin(!islogin);
+  };
+
   return (
     <nav className={styles.nav}>
       <HStack alignItems={"center"} className={styles.Navigation}>
@@ -15,14 +33,13 @@ const Navigation = ({ isauthed, activePage }) => {
           <Image src={logosrc} alt="Bakha Logo" width="40px" height="60px" />
         </Box>
         <HStack as={"ul"} className="nav-menu" alignItems="center">
-          
           <NextLink href="/" passHref>
             <Link>Home</Link>
           </NextLink>
           <NextLink href="/stories" passHref>
             <Link>Explore</Link>
           </NextLink>
-          {isauthed ? (
+          {islogged ? (
             <>
               <NextLink href="/" passHref>
                 <Link>My Stories</Link>
@@ -43,17 +60,66 @@ const Navigation = ({ isauthed, activePage }) => {
           )}
         </HStack>
         <HStack alignItems={"center"}>
-          {isauthed ? (
+          {islogged ? (
             <Button>Logout</Button>
           ) : (
             <>
               <Button>Register</Button>
-              <Button>Login</Button>
+              <Button onClick={loginpopup}>Login</Button>
             </>
           )}
         </HStack>
       </HStack>
+      {(!islogged && islogin) && <Login />}
     </nav>
+  );
+};
+
+const Login = () => {
+  const [formstate, setFormstate] = useState({
+    username: "",
+    password: "",
+  });
+
+  const {user, login, logout} = useAuth()
+
+  const handlefield = (e) => {
+    setFormstate({
+      ...formstate,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handlelogin = async (e) =>{
+    e.preventDefault();
+    await login(formstate.username, formstate.password);
+    console.log("reached");
+  }
+  return (
+    <Container id="loginModal">
+      <FormControl isRequired>
+        <FormLabel htmlFor="username">Username: </FormLabel>
+        <Input
+          id="username"
+          placeholder="Username eg: gathora223"
+          name="username"
+          autoComplete="username"
+          onChange={handlefield}
+        />
+      </FormControl>
+      <FormControl isRequired>
+        <FormLabel htmlFor="password">Password: </FormLabel>
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          placeholder="**********"
+          autoComplete="current-password"
+          onChange={handlefield}
+        />
+      </FormControl>
+      <Button onClick={handlelogin}>Sign In</Button>
+    </Container>
   );
 };
 

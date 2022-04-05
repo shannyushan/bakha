@@ -18,7 +18,7 @@ export default function handler(req:NextApiRequest, res:NextApiResponse){
             break;
         case 'POST':
             const {username, password} = req.body;
-            const result =Auth(username, password);
+            const result = Auth(username, password);
             res.status(200).json({result:result});
     }
     res.status(200)
