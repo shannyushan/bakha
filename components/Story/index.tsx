@@ -17,6 +17,7 @@ import {
   BsFillHandThumbsDownFill,
 } from "react-icons/bs";
 import React, { useState } from "react";
+import CommentWraper from "../comment";
 
 const Story = ({ id, slug, title, content, meta }) => {
   const [iscomment, setIscomment] = useState<Boolean>(false);
@@ -89,7 +90,10 @@ const Story = ({ id, slug, title, content, meta }) => {
               >
                 <BsHandThumbsDown size={"1.5em"} />
               </Flex>
-              <Button variant="ghost">Comment</Button>
+              <Button variant="ghost" onClick={(e)=>{
+               e.preventDefault();
+               setIscomment(true); 
+              }}>Comment</Button>
               <Button variant="ghost">Read Later</Button>
             </HStack>
 
@@ -99,18 +103,12 @@ const Story = ({ id, slug, title, content, meta }) => {
           </HStack>
           <hr style={{ margin: "0.6em 0" }} />
         </Box>
-        {iscomment && <Comment id={id} />}
+        {iscomment && <CommentWraper size="md"/>}
       </VStack>
     </Container>
   );
 };
 
-const Comment = ({ id }) => {
-  return (
-    <Container className="storyCommentBox">
-      <h1>HI</h1>
-    </Container>
-  );
-};
+
 
 export default Story;
