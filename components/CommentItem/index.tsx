@@ -10,7 +10,6 @@ const CommentItem = ({comm}) => {
       <Avatar />
       <VStack alignItems="flex-start">
         <Text size="md" fontWeight="bold">
-          {" "}
           Alan Walker
         </Text>
         <Text>

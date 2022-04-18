@@ -3,6 +3,7 @@ import next from "next";
 import { useState } from "react";
 import Image from "next/image";
 import NextLink from "next/link";
+import {VscLoading} from "react-icons/vsc";
 import logosrc from "./../../public/Bakha.png";
 import {
   Container,
@@ -97,6 +98,7 @@ const Navigation = () => {
 };
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formstate, setFormstate] = useState({
     username: "",
     password: "",
@@ -113,7 +115,13 @@ const Login = () => {
 
   const handlelogin = async (e) => {
     e.preventDefault();
-    await login(formstate.username, formstate.password);
+    setIsLoading(true);
+    const res = await login(formstate.username, formstate.password);
+    if (!res["err"]) {
+      if(res["res"]) setIsLoading(false);
+    } else {
+      setIsLoading(false)
+    }
     console.log("reached");
   };
   return (
@@ -139,7 +147,7 @@ const Login = () => {
           onChange={handlefield}
         />
       </FormControl>
-      <Button onClick={handlelogin}>Sign In</Button>
+      <Button onClick={handlelogin}>{isLoading?"Signing In":"Sign In"}</Button>
     </Container>
   );
 };
