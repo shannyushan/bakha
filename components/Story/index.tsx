@@ -21,6 +21,7 @@ import CommentWraper from "../comment";
 
 const Story = ({ id, slug, title, content, meta }) => {
   const [iscomment, setIscomment] = useState<Boolean>(false);
+  const [likestate, setLikeState] = useState<Boolean>(null);
   const isImage =true;
 
   const storymetaStyle = {

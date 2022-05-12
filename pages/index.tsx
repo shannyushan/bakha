@@ -177,8 +177,8 @@ const Home: NextPage = () => {
               alignItems="flex-start"
               maxHeight={400}
             >
-              {data.tags.map((tag) => (
-                <Text>{`#${tag.title}`}</Text>
+              {data.tags.map((tag, index) => (
+                <Text key={index}>{`#${tag.title}`}</Text>
               ))}
             </VStack>
           </VStack>
@@ -225,9 +225,9 @@ const Home: NextPage = () => {
                   <Text size="lg" fontWeight="bold">Read List</Text>
                 <VStack gap={"1px"} w="100%">
 
-                  {[1, 2, 3, 4, 5].map((popularitem) => (
+                  {[1, 2, 3, 4, 5].map((popularitem, index) => (
                     <HStack
-                      key={popularitem}
+                      key={index}
                       p="0.4em"
                       backgroundColor={"white"}
                       w="100%"

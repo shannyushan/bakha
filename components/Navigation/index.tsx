@@ -64,6 +64,9 @@ const Navigation = () => {
                 <NextLink href="/" passHref>
                   <Link>My Stories</Link>
                 </NextLink>
+                <NextLink href="/story/new" passHref>
+                  <Link>Create Story</Link>
+                </NextLink>
                 <NextLink href="/" passHref>
                   <Link>Profile</Link>
                 </NextLink>
@@ -82,6 +85,7 @@ const Navigation = () => {
 
           <HStack alignItems={"center"}>
             {islogged ? (
+
               <Button>Logout</Button>
             ) : (
               <>
